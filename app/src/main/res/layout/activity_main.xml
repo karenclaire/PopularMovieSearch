@@ -9,13 +9,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <SearchView
+    <!--<SearchView
         android:id="@+id/search_view"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:iconifiedByDefault="false"
         android:searchHintIcon="@string/search_for_movie"
         android:layout_marginBottom="@dimen/margin_top_bottom_sides"/>
+        -->
 
     <GridView
             android:id="@+id/movie_list"

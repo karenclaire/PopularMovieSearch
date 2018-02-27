@@ -178,7 +178,7 @@ public final class MovieUtils {
 
                 // Create a new {@link Movie} object with the title,  release date, average vote, imageUrl and id
                 // and url from the JSON response.
-                Movie movie = new Movie(id, title, voteAverage,  releaseDate, posterPath, overview );
+                Movie movie = new Movie(id, title, voteAverage, releaseDate, posterPath, overview );
 
                 // Add the new {@link Movie} to the list of movies.
                 movies.add(movie);

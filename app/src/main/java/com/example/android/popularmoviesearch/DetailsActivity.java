@@ -1,21 +1,12 @@
 package com.example.android.popularmoviesearch;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Display;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
 
 /**
  * Created by karenulmer on 2/20/2018.
@@ -68,8 +59,8 @@ public class DetailsActivity extends AppCompatActivity {
 
     /**
      * NOT SURE IF THIS FITS MY CURRENT CODE... I just based this on someone else's work for
-     * my reference and evaluate if this is what I need...
-     */
+     * my reference and evaluate if this is what I need...I think I covered this on the Movie Adapter part
+
     public static class PlaceholderFragment extends Fragment {
 
         public PlaceholderFragment() {
@@ -92,11 +83,11 @@ public class DetailsActivity extends AppCompatActivity {
             int id = intent.getIntExtra("movie_id", 0);
             int movie_position = intent.getIntExtra("movie_position", 0);
             movie = MainActivity.moviesList.get(movie_position);
-            title = (TextView) rootView.findViewById(R.id.title);
-            releaseDate = (TextView) rootView.findViewById(R.id.tv_date);
-            rating = (TextView) rootView.findViewById(R.id.tv_rating);
-            movie_poster = (ImageView) rootView.findViewById(R.id.movie_poster);
-            summary = (TextView) rootView.findViewById(R.id.tv_summary);
+            title = rootView.findViewById(R.id.title);
+            releaseDate = rootView.findViewById(R.id.tv_date);
+            rating = rootView.findViewById(R.id.tv_rating);
+            movie_poster =  rootView.findViewById(R.id.movie_poster);
+            summary =  rootView.findViewById(R.id.tv_summary);
         }
 
         public static void setValues(View rootView) {
@@ -117,6 +108,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         }
     }
+        **/
 }
 
 
