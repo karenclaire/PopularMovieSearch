@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.List;
+
 /**
  * Created by karenulmer on 2/18/2018.
  *
@@ -33,6 +35,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
 
     final private MovieAdapterOnClickHandler mClickHandler;
     private boolean mUseDetailLayout;
+
+    private List<Movie> mMoviesList;
 
     private  ImageView posterImageView;
 
@@ -60,7 +64,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
 
     //@Override
     public MovieAdapterViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType){
-
+            mContext = viewGroup.getContext();
             int layoutId;
 
             switch (viewType) {
@@ -80,13 +84,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
             View view = LayoutInflater.from(mContext).inflate(layoutId, viewGroup, false);
             view.setFocusable(true);
 
-             return new MovieAdapterViewHolder(viewGroup);
+             return new MovieAdapterViewHolder(view);
     }
 
 
     @Override
-    public int getItemCount() {return 0;
-    }
+    public int getItemCount() {return 0;}
 
     class MovieAdapterViewHolder extends RecyclerView.ViewHolder {
         public Movie mMovie;

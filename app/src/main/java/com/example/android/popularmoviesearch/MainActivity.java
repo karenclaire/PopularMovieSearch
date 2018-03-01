@@ -19,7 +19,6 @@ import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,9 +51,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private static final int MOVIE_LOADER_ID = 1;
 
     /**
-     * Movies Array
+     * Movies List
      */
-    static public ArrayList<Movie> moviesList;
+    static public List<Movie> moviesList;
     /**
      * Adapter for the list of movies
      */
@@ -124,11 +123,21 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         /* Setting the adapter attaches it to the RecyclerView in our layout. */
         mRecyclerView.setAdapter(mMovieAdapter);
+
         GridView gridView = (GridView) findViewById(R.id.movie_list);
 
         movieGridView = gridView;
-        //gridView.setAdapter(MovieAdapter.class, (RecyclerView.Adapter<MovieAdapter.MovieAdapterViewHolder>));
+        //int ot = getResources().getConfiguration().orientation;
+        //gridView.setNumColumns(ot == Configuration.ORIENTATION_LANDSCAPE ? 3 : 2);
         movieGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+
+             //public View onCreateView(LayoutInflater inflater, ViewGroup container,
+             //                         Bundle onSavedInstanceState) {
+             //    View view = inflater.inflate(R.layout.movie_list_item, container, false);
+
+             //     return view;
+             //}
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -137,6 +146,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 Movie gridView = mMovie;
                 Uri movieUri = Uri.parse(gridView.getImageUrl());
                 Intent webIntent = new Intent(Intent.ACTION_VIEW, movieUri);
+                webIntent.putExtra("movie_id", moviesList.get(position).getId());
+                webIntent.putExtra("movie_position", position);
                 startActivity(webIntent);
             }
         });
@@ -237,6 +248,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         //    mMovieAdapter.addAll(movies);
         //}
     }
+
+
 
 
     @Override
