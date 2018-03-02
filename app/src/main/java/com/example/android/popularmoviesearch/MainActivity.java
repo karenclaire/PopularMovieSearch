@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
      * Tag for log messages
      */
     public static final String LOG_TAG = MainActivity.class.getName();
-
     /**
      * URL for Movie API for tmdb
      */
@@ -124,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         /* Setting the adapter attaches it to the RecyclerView in our layout. */
         mRecyclerView.setAdapter(mMovieAdapter);
 
-        GridView gridView = (GridView) findViewById(R.id.movie_list);
+        GridView gridView = findViewById(R.id.movie_list);
 
         movieGridView = gridView;
         //int ot = getResources().getConfiguration().orientation;
@@ -168,34 +167,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             mEmptyStateTextView.setText(R.string.no_internet);
         }
 
-        /**searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
-            @Override
-            public boolean onQueryTextSubmit(String query){
-                if (isConnected()) {
-                    movieGridView.setVisibility(View.INVISIBLE);
-                    mEmptyStateTextView.setVisibility(View.GONE);
-                    mProgressBar.setVisibility(View.VISIBLE);
-                    mQuery = searchView.getQuery().toString();
-                    mQuery = mQuery.replace(" ", "+");
-                    Log.v(LOG_TAG, mQuery);
-                    getLoaderManager().restartLoader(MOVIE_LOADER_ID, null, MainActivity.this);
-                    searchView.clearFocus();
-                } else {
-                    movieGridView.setVisibility(View.INVISIBLE);
-                    mProgressBar.setVisibility(View.GONE);
-                    mEmptyStateTextView.setVisibility(View.VISIBLE);
-                    mEmptyStateTextView.setText(R.string.no_internet);
-                }
-                return false;
-
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;}
-        });
-        /**/
     }
 
 
