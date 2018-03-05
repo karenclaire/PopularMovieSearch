@@ -1,24 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
     <!-- This layout defines the main screen and will display the movie posters or an error -->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!--<SearchView
-        android:id="@+id/search_view"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:iconifiedByDefault="false"
-        android:searchHintIcon="@string/search_for_movie"
-        android:layout_marginBottom="@dimen/margin_top_bottom_sides"/>
-        -->
-
-    <GridView
+        <GridView
             android:id="@+id/movie_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -29,16 +17,15 @@
             android:stretchMode="columnWidth"
             android:gravity="center"/>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview_grid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="8dp"
+        app:layoutManager="GridLayoutManager"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview_grid"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingBottom="8dp"/>
-
-
-        <!-- Empty view is only visible when the list has no items. -->
+    <!-- Empty view is only visible when the list has no items. -->
         <TextView
             android:id="@+id/empty_view"
             android:layout_width="wrap_content"
@@ -55,6 +42,4 @@
             android:layout_gravity="center"
             android:visibility="invisible" />
 
-
-
-</LinearLayout>
+    </FrameLayout>

@@ -19,6 +19,8 @@ import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.android.popularmoviesearch.MovieAdapter.MovieAdapterOnClickHandler;
+
 import java.util.List;
 
 /**
@@ -34,7 +36,7 @@ import java.util.List;
 
 
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Movie>>, MovieAdapter.MovieAdapterOnClickHandler {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Movie>>, MovieAdapterOnClickHandler{
 
     /**
      * Tag for log messages
@@ -52,7 +54,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     /**
      * Movies List
      */
-    static public List<Movie> moviesList;
+    public List<Movie> moviesList;
+
     /**
      * Adapter for the list of movies
      */
@@ -68,14 +71,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     /**
      * List of movies
      */
-    private GridView movieGridView;
+    private GridView mMovieGridView;
 
-    /**
-     * Value for search query
-     */
-    //private String mQuery;
-
-    /**
+      /**
      * TextView that is displayed when the list is empty
      */
     private TextView mEmptyStateTextView;
@@ -86,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private ProgressBar mProgressBar;
 
     private RecyclerView mRecyclerView;
+    private MovieAdapterOnClickHandler clickHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,16 +97,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // Create a new adapter that takes an empty list of movies as input
         //mMovieAdapter = new MovieAdapter();
 
-        // Set the adapter on the {@link ListView}
-        // so the list can be populated in the user interface
-        //movieGridView.setView(mMovieAdapter);
 
         // Set an item click listener on the ListView, which sends an intent to a web browser
         // to open a website with more information about the selected movie.
         // Find a reference to the {@link movieGridView} in the layout
         mRecyclerView = findViewById(R.id.recyclerview_grid);
 
-        LinearLayoutManager layoutManager
+      LinearLayoutManager layoutManager
                 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
         mRecyclerView.setLayoutManager(layoutManager);
@@ -125,10 +121,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         GridView gridView = findViewById(R.id.movie_list);
 
-        movieGridView = gridView;
+        mMovieGridView = gridView;
         //int ot = getResources().getConfiguration().orientation;
         //gridView.setNumColumns(ot == Configuration.ORIENTATION_LANDSCAPE ? 3 : 2);
-        movieGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 
              //public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -142,8 +138,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
 
-                Movie gridView = mMovie;
-                Uri movieUri = Uri.parse(gridView.getImageUrl());
+                Movie currentMovie = mMovie;
+                Uri movieUri = Uri.parse(currentMovie.getPosterPath());
                 Intent webIntent = new Intent(Intent.ACTION_VIEW, movieUri);
                 webIntent.putExtra("movie_id", moviesList.get(position).getId());
                 webIntent.putExtra("movie_position", position);
@@ -155,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mProgressBar = findViewById(R.id.pb_loading_indicator);
         // Find the reference to the empty text view in a layout and set empty view
         mEmptyStateTextView = findViewById(R.id.empty_view);
-        movieGridView.setEmptyView(mEmptyStateTextView);
+        gridView.setEmptyView(mEmptyStateTextView);
 
 
         if (isConnected()) {
@@ -203,24 +199,25 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public Loader<List<Movie>> onCreateLoader(int id, Bundle args) {
-        String requestUrl = "";
-        requestUrl = MOVIE_REQUEST_URL;
+        String requestUrl = MOVIE_REQUEST_URL;
         return new MovieLoader(this, requestUrl);
+
     }
 
     @Override
     public void onLoadFinished(Loader<List<Movie>> loader, List<Movie> movies) {
 
-        mEmptyStateTextView.setText(R.string.no_movies);
-        mProgressBar.setVisibility(View.GONE);
-        //mMovieAdapter.clear();
-
-        //if (movies != null && !movies.isEmpty()) {
-        //    mMovieAdapter.addAll(movies);
-        //}
+       //if (movies == null && movies.isEmpty()){
+            mEmptyStateTextView.setText(R.string.no_movies);
+            mProgressBar.setVisibility(View.GONE);
+           // moviesList.clear();
+        //}else
+       //if (movies != null && !movies.isEmpty()) {
+         //   this.clickHandler.getClass();
+        //mMovieAdapter = new MovieAdapter((MovieAdapterOnClickHandler) movies);
+        //moviesList.addAll(movies);
+         //   }
     }
-
-
 
 
     @Override
@@ -233,4 +230,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
 
     }
-}
+
+
+
+
+    }

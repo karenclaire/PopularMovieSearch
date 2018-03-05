@@ -124,8 +124,7 @@ public class Movie  implements Parcelable {
          */
         public String getPosterPath() {return mPosterPath; }
 
-        public void setPosterPath(String posterPath) {
-        this.mPosterPath = posterPath;
+        public void setPosterPath(String posterPath) {  this.mPosterPath = posterPath;
     }
 
         @Override
