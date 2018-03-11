@@ -19,9 +19,10 @@ import android.widget.GridView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.android.popularmoviesearch.MovieAdapter.MovieAdapterOnClickHandler;
-
+import java.util.ArrayList;
 import java.util.List;
+
+//import com.example.android.popularmoviesearch.MovieAdapter.MovieAdapterOnClickHandler;
 
 /**
  * Created by karenulmer on 2/20/2018.
@@ -32,11 +33,14 @@ import java.util.List;
  * 3) https://github.com/bapspatil/FlickOff
  * 4)https://github.com/henriquenfaria/popular-movies-stage-1
  * 5) my previous udacity projects: NewsApp and BookApp
+ * 6) https://googledevndscholars.slack.com/threads/
+ * 7)https://gist.github.com/riyazMuhammad/1c7b1f9fa3065aa5a46f
  */
 
 
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Movie>>, MovieAdapterOnClickHandler{
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Movie>>, MovieAdapter.MovieAdapterOnClickListener{
+
 
     /**
      * Tag for log messages
@@ -54,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     /**
      * Movies List
      */
-    public List<Movie> moviesList;
+    public ArrayList<Movie> moviesList;
 
     /**
      * Adapter for the list of movies
@@ -63,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     public Movie mMovie;
 
+    public MovieAdapter.MovieAdapterOnClickListener listener;
     /**
      * SearchView that takes the query
      */
@@ -71,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     /**
      * List of movies
      */
-    private GridView mMovieGridView;
+    private GridView movieGridView;
 
       /**
      * TextView that is displayed when the list is empty
@@ -84,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private ProgressBar mProgressBar;
 
     private RecyclerView mRecyclerView;
-    private MovieAdapterOnClickHandler clickHandler;
+    //private MovieAdapterOnClickHandler clickHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,8 +108,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // Find a reference to the {@link movieGridView} in the layout
         mRecyclerView = findViewById(R.id.recyclerview_grid);
 
-      LinearLayoutManager layoutManager
-                = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager layoutManager
+                = new  LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
         mRecyclerView.setLayoutManager(layoutManager);
 
@@ -113,28 +118,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
          * change the child layout size in the RecyclerView
          */
         mRecyclerView.setHasFixedSize(true);
+        GridView gridView = findViewById(R.id.movie_list);
 
-        mMovieAdapter = new MovieAdapter(this);
+        movieGridView= gridView;
 
+        mMovieAdapter = new MovieAdapter(this, new ArrayList<Movie>(),listener);
         /* Setting the adapter attaches it to the RecyclerView in our layout. */
         mRecyclerView.setAdapter(mMovieAdapter);
 
-        GridView gridView = findViewById(R.id.movie_list);
-
-        mMovieGridView = gridView;
-        //int ot = getResources().getConfiguration().orientation;
-        //gridView.setNumColumns(ot == Configuration.ORIENTATION_LANDSCAPE ? 3 : 2);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        movieGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 
-             //public View onCreateView(LayoutInflater inflater, ViewGroup container,
-             //                         Bundle onSavedInstanceState) {
-             //    View view = inflater.inflate(R.layout.movie_list_item, container, false);
-
-             //     return view;
-             //}
-
-            @Override
+             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
 
@@ -151,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mProgressBar = findViewById(R.id.pb_loading_indicator);
         // Find the reference to the empty text view in a layout and set empty view
         mEmptyStateTextView = findViewById(R.id.empty_view);
-        gridView.setEmptyView(mEmptyStateTextView);
+        movieGridView.setEmptyView(mEmptyStateTextView);
 
 
         if (isConnected()) {
@@ -206,32 +201,34 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<List<Movie>> loader, List<Movie> movies) {
-
-       //if (movies == null && movies.isEmpty()){
+            //if (movies == null && movies.isEmpty()){
             mEmptyStateTextView.setText(R.string.no_movies);
             mProgressBar.setVisibility(View.GONE);
-           // moviesList.clear();
-        //}else
-       //if (movies != null && !movies.isEmpty()) {
-         //   this.clickHandler.getClass();
-        //mMovieAdapter = new MovieAdapter((MovieAdapterOnClickHandler) movies);
-        //moviesList.addAll(movies);
-         //   }
-    }
+            moviesList.clear();
+            //}else
+            if (movies != null && !movies.isEmpty()) {
+                //   this.clickHandler.getClass();
+                //mMovieAdapter = new MovieAdapter((MovieAdapterOnClickHandler) movies);
+                moviesList.addAll(movies);
+            }
+        }
+
 
 
     @Override
     public void onLoaderReset(Loader<List<Movie>> loader) {
+       return;
         }
 
     @Override
-    public void onClick() {
-        Context context = this;
+    public void onMovieClick(int clickMovieIndex) {
+        return;
 
 
     }
-
-
+    //@Override
+    //public void onClick() {
+     //   Context context = this;
 
 
     }
